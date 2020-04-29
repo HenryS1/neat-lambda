@@ -1,1 +1,20 @@
 * Neat Lambda
+
+A shorthand syntax for writing lambda expressions in common lisp.
+
+** Motivation
+
+Often it's inconvenient to write out a full lambda expression in
+Common Lisp. Instead of this
+
+#+begin_src lisp
+  (mapcar (lambda (a b) (list (max a b) (min a b))) '(1 5 3) '(4 2 6))
+#+end_src
+
+It would be nice to write
+
+#+begin_src lisp
+  (mapcar #l(list (max %1 %2) (min %1 %2)) '(1 5 3) '(4 2 6))
+#+end_src
+
+This library provides a reader macro that enables this.
