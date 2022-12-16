@@ -1,3 +1,4 @@
 (defpackage :neat-lambda
   (:use :cl)
-  (:nicknames "nl"))
+  (:nicknames "nl")
+  (:export :enable-lambda-syntax :disable-lambda-syntax))

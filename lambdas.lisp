@@ -25,5 +25,12 @@
   (let ((exp (read stream)))
     (expand-lambda exp)))
 
-(set-dispatch-macro-character #\# #\l #'|#l-reader|)
+(defmacro enable-lambda-syntax ()
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (defvar *previous-readtables* nil)
+     (push *readtable* *previous-readtables*)
+     (set-dispatch-macro-character #\# #\l #'|#l-reader|)))
 
+(defmacro disable-lambda-syntax ()
+  `(eval-when (:compile-toplevel :load-toplevel :execute)
+     (setf *readtable* (pop *previous-readtables*))))
