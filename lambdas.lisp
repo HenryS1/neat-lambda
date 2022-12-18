@@ -1,8 +1,8 @@
 (in-package :neat-lambda)
 
 (defun sort-by-number (a b) 
-  (< (parse-integer (subseq (symbol-name a) 1))
-     (parse-integer (subseq (symbol-name b) 1))))
+  (< (parse-integer (subseq (symbol-name a) 1) :junk-allowed t)
+     (parse-integer (subseq (symbol-name b) 1) :junk-allowed t)))
 
 (defun find-args (exp)
   (labels ((rec (e acc)
