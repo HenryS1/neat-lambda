@@ -16,8 +16,8 @@
                           acc)))))
       (rec exp nil)))
 
-(defmacro expand-lambda (exp)
-  `(let ((args (find-args ,exp)))
+(defun expand-lambda (exp)
+  (let ((args (find-args exp)))
     `(lambda ,args ,exp)))
 
 (defun |#l-reader| (stream subchar arg)

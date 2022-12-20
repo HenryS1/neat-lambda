@@ -3,6 +3,7 @@
   :author "Henry Steere"
   :license "MIT"
   :components ((:file "package")
-               (:file "lambdas"))
+               (:file "lambdas")
+               (:file "currying"))
   :description "Provides abbreviated lambdas for Common Lisp"
   :in-order-to ((test-op (test-op "lambdas-test"))))
