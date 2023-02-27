@@ -1,8 +1,12 @@
 * Neat Lambda
 
-A shorthand syntax for writing lambda expressions in common lisp.
+This library adds two convenient reader macros ~#l~ and ~#p~ (short
+for lambda and partial application). The ~#l~ reader macro provides
+shorthand syntax for writing lambda expressions in Common Lisp. The
+~#p~ reader macro provides convient syntax for currying and can be
+used to curry functions and macros.
 
-** Motivation
+** Lambda abbreviations
 
 Often it's inconvenient to write out a full lambda expression in
 Common Lisp. Instead of this
@@ -11,10 +15,23 @@ Common Lisp. Instead of this
   (mapcar (lambda (a b) (list (max a b) (min a b))) '(1 5 3) '(4 2 6))
 #+end_src
 
-It would be nice to write
+The ~#l~ reader macro lets you use an abbreviated lambda syntax.
 
 #+begin_src lisp
   (mapcar #l(list (max %1 %2) (min %1 %2)) '(1 5 3) '(4 2 6))
 #+end_src
 
-This library provides a reader macro that enables this.
+Use ~(neat-lambda:enable-lambda-syntax)~ in files that need to use the
+lambda reader macro.
+
+** Currying
+
+The ~#p~ read macro can be used to curry functions. For instance to
+add ~1~ to every element of a list use
+#+begin_src lisp
+  (mapcar #p(+ 1) (list 1 2 3))
+  ;; (2 3 4)
+#+end_src
+
+Use ~(neat-lambda:enable-currying-syntax)~ in files that need to use
+the currying reader macro.
