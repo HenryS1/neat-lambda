@@ -1,8 +1,16 @@
 (in-package :neat-lambda)
 
+(defun find-arg-number (arg)
+  (parse-integer (subseq (symbol-name arg) 1) :junk-allowed t))
+
 (defun sort-by-number (a b) 
-  (< (parse-integer (subseq (symbol-name a) 1) :junk-allowed t)
-     (parse-integer (subseq (symbol-name b) 1) :junk-allowed t)))
+  (< (find-arg-number a)
+     (find-arg-number b)))
+
+(defun check-args-are-numbered (args)
+  (loop for arg in args 
+        when (not (find-arg-number arg))
+          do (error "When multiple arguments are provided they must each start with a unique number. This argument doesn't: ~a" arg)))
 
 (defun find-args (exp)
   (labels ((rec (e acc)
@@ -12,7 +20,8 @@
                     (let ((args (rec (car e) acc)))
                       (rec (cdr e) args)))
                    (t (if (> (length acc) 1)
-                          (sort acc #'sort-by-number)
+                          (progn (check-args-are-numbered acc)
+                                 (sort acc #'sort-by-number))
                           acc)))))
       (rec exp nil)))
 
